@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35201.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPDC_Chart", "CPDC_Chart\CPDC_Chart.csproj", "{AC54569E-FB0E-4795-AFF4-A3F75877A644}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC54569E-FB0E-4795-AFF4-A3F75877A644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC54569E-FB0E-4795-AFF4-A3F75877A644}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC54569E-FB0E-4795-AFF4-A3F75877A644}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC54569E-FB0E-4795-AFF4-A3F75877A644}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1BD4EBCA-E625-4ACE-A5EF-37AE3CDD0CBD}
+	EndGlobalSection
+EndGlobal
