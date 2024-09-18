@@ -1,6 +1,5 @@
 ﻿using CPDC_Chart.Dto;
 using CPDC_Chart.Interface;
-using CPDC_Chart.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CPDC_Chart.Controllers

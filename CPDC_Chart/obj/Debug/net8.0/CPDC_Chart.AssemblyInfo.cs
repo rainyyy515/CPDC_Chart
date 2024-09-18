@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CPDC_Chart")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7075de9809185343553c60758327473222de1830")]
 [assembly: System.Reflection.AssemblyProductAttribute("CPDC_Chart")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CPDC_Chart")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

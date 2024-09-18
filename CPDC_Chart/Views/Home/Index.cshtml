@@ -27,7 +27,7 @@
             <label>開始時間：</label>
             <input name="StartTime" id="StartTime" type="datetime-local" value="@DateTime.Now.ToString("yyyy-09-08T00:00")">
             <label class="ms-2">結束時間：</label>
-            <input name="EndTime" id="EndTime" type="datetime-local" value="@DateTime.Now.ToString("yyyy-09-08T01:00")">
+            <input name="EndTime" id="EndTime" type="datetime-local" value="@DateTime.Now.ToString("yyyy-09-08T23:00")">
             <button class="btn btn-primary py-1 rounded-pill mx-2" type="button" value="查詢" onclick="Search_Click()">查詢</button>
             <button class="btn btn-primary py-1 rounded-pill" type="button" value="匯出" onclick="Excel_Click()">匯出</button>
         </div>
@@ -77,7 +77,7 @@
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="GHV" value="GHV"><label for="GHV">總熱值</label>
         </div>
         <div class="m-3" style="height:600px;">
-            <canvas id="myLineChart" class=""></canvas>
+            <canvas id="myLineChart"></canvas>
         </div>
     </div>
 </div>

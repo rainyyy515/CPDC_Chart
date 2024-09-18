@@ -37,3 +37,4 @@ D:\JSENE\中石化歷史趨勢圖資料\CPDC_Chart\CPDC_Chart\CPDC_Chart\bin\Deb
 D:\JSENE\中石化歷史趨勢圖資料\CPDC_Chart\CPDC_Chart\CPDC_Chart\bin\Debug\net8.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\JSENE\中石化歷史趨勢圖資料\CPDC_Chart\CPDC_Chart\CPDC_Chart\bin\Debug\net8.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\JSENE\中石化歷史趨勢圖資料\CPDC_Chart\CPDC_Chart\CPDC_Chart\obj\Debug\net8.0\CPDC_Chart.csproj.Up2Date
+D:\JSENE\中石化歷史趨勢圖資料\CPDC_Chart\CPDC_Chart\CPDC_Chart\obj\Debug\net8.0\CPDC_Chart.sourcelink.json

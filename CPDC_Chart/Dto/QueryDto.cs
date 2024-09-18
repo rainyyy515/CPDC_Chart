@@ -7,6 +7,5 @@
         public DateTime EndTime { get; set; }
         public List<string>? CheckboxValues { get; set; }
         public List<string>? CheckboxStrings { get; set; }
-
     }
 }

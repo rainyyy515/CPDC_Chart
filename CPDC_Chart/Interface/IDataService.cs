@@ -1,5 +1,4 @@
 ﻿using CPDC_Chart.Dto;
-using CPDC_Chart.Models;
 
 namespace CPDC_Chart.Interface
 {
