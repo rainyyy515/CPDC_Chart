@@ -25,9 +25,9 @@
         </div>
         <div class="py-2 d-flex align-items-center">
             <label>開始時間：</label>
-            <input name="StartTime" id="StartTime" type="datetime-local" value="@DateTime.Now.ToString("yyyy-09-08T00:00")">
+            <input name="StartTime" id="StartTime" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddT00:00")">
             <label class="ms-2">結束時間：</label>
-            <input name="EndTime" id="EndTime" type="datetime-local" value="@DateTime.Now.ToString("yyyy-09-08T23:00")">
+            <input name="EndTime" id="EndTime" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")">
             <button class="btn btn-primary py-1 rounded-pill mx-2" type="button" value="查詢" onclick="Search_Click()">查詢</button>
             <button class="btn btn-primary py-1 rounded-pill" type="button" value="匯出" onclick="Excel_Click()">匯出</button>
         </div>
@@ -36,6 +36,7 @@
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="SiteHCN" value="Value21"><label for="SiteHCN">現場-氰化氫</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="O2" value="Value22"><label for="O2">氧氣</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="H2" value="Value23"><label for="H2">氫氣</label>
+            <input class="mx-1" type="checkbox" name="CheckBoxItem" id="TMP" value="TMP"><label for="TMP">站內溫度</label>
         </div>
         <div>
             <label>MBs：</label>
@@ -56,22 +57,18 @@
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="C5" value="Value5"><label for="C5">C5+</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="THC" value="Value6"><label for="THC">THC</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="HCN" value="Value7"><label for="HCN">氰化氫</label>
-            <input class="mx-1" type="checkbox" name="CheckBoxItem" id="C3H8" value="Value8"><label for="C3H8">丙烷</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="C3H6" value="Value9"><label for="C3H6">丙烯</label>
-            <input class="mx-1" type="checkbox" name="CheckBoxItem" id="HCN2" value="Value10"><label for="HCN2">氰化氫二聚物</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="ACN" value="Value11"><label for="ACN">乙腈</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="AN" value="Value12"><label for="AN">丙烯腈</label>
         </div>
         <div>
-            <label>HVs：</label>
-            <input class="mx-1" type="checkbox" name="CheckBoxItem" id="TMP" value="TMP"><label for="TMP">站內溫度</label>
+            <label>熱值：</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="HV_C1" value="C1"><label for="HV_C1">C1</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="HV_C2" value="C2"><label for="HV_C2">C2</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="HV_C3" value="C3"><label for="HV_C3">C3</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="HV_C4" value="C4"><label for="HV_C4">C4</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="HV_C5" value="C5"><label for="HV_C5">C5+</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="HV_HCN" value="HCN"><label for="HV_HCN">氰化氫</label>
-            <input class="mx-1" type="checkbox" name="CheckBoxItem" id="HV_C3H6" value="C3H6"><label for="HV_C3H6">丙烯</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="HV_ACN" value="ACN"><label for="HV_ACN">乙腈</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="HV_AN" value="AN"><label for="HV_AN">丙烯腈</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="GHV" value="GHV"><label for="GHV">總熱值</label>
@@ -151,7 +148,11 @@
             let resultArray = data.map(item => {
                 let values = [item.RecDateTime];
                 checkboxStrings.forEach(attr => {
-                    values.push(item[attr]);
+                    if(item[attr] == null){
+                        let num = 0;
+                        item[attr] = parseFloat(num);
+                    };
+                    values.push((item[attr]).toFixed(2));
                 });
                 return values;
             });
