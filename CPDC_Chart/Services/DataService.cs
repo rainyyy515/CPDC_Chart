@@ -31,9 +31,43 @@ namespace CPDC_Chart.Services
                     a.[RecDateTime]
                     {checkboxStr}
                     FROM [CPDCII].[dbo].[AVG_{query.Model}] as a
-                    INNER JOIN [CPDCII].[dbo].[Temporary_{query.Model}] as b
+                    LEFT JOIN [CPDCII].[dbo].[Temporary_{query.Model}] as b
                     ON a.RecDateTime = b.RecDateTime
                     WHERE a.RecDateTime BETWEEN @StartTime AND @EndTime
+                    ORDER BY RecDateTime";
+
+                var result = conn.Query<dynamic>(sql, paramters);
+                return result;
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine($"Error occurred while fetching data: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+            }
+            return [];
+        }
+
+        public IEnumerable<dynamic> GetQueryDataDailyFR(QueryDto query)
+        {
+            try
+            {
+                using var conn = new SqlConnection(_connectString);
+                var paramters = new DynamicParameters();
+                paramters.Add("@StartTime", query.StartTime);
+                paramters.Add("@EndTime", query.EndTime);
+                var checkboxStr = string.Empty;
+                for (int i = 0; i < query.CheckboxValues!.Count; i++)
+                {
+                    checkboxStr += $",[{query.CheckboxValues![i]}] as '{query.CheckboxStrings![i]}'";
+                }
+                var sql = @$"SELECT
+                    [RecDateTime]
+                    {checkboxStr}
+                    FROM [CPDCII].[dbo].[Regulate_Date]
+                    WHERE RecDateTime BETWEEN @StartTime AND @EndTime
                     ORDER BY RecDateTime";
 
                 var result = conn.Query<dynamic>(sql, paramters);

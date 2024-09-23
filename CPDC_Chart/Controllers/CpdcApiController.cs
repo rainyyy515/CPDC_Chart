@@ -25,5 +25,11 @@ namespace CPDC_Chart.Controllers
         {
             return _dataService.GetQueryDataDay(query);
         }
+        [HttpPost]
+        [Route("DailyFR")]
+        public IEnumerable<dynamic> PostDailyFR(QueryDto query)
+        {
+            return _dataService.GetQueryDataDailyFR(query);
+        }
     }
 }

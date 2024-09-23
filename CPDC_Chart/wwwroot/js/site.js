@@ -1,6 +1,37 @@
 ﻿//// 確保在 DOM 加載完成後執行此代碼
 let myLineChart;
 const ctx = document.getElementById('myLineChart').getContext('2d');
+const FRsBtn = $("#FRsBtn");
+document.querySelectorAll('input[name="Item"]').forEach((radio) => {
+    radio.addEventListener('change', function (event) {
+        if (event.target.value == "DailyFR") {
+            if (myLineChart) {
+                myLineChart.destroy();
+                $("#CompletenessRate").val("");
+            }
+            document.querySelectorAll('input[name="CheckBoxItem"]').forEach(i => {
+                i.checked = false;
+            });
+            document.querySelectorAll('input[name="CheckBoxItem"]').forEach(i => {
+                i.disabled = true;
+            });
+            document.querySelectorAll('#FRs input').forEach(i => {
+                i.disabled = false;
+            });
+            FRsBtn.prop("disabled", false);
+        } else {
+            document.querySelectorAll('input[name="CheckBoxItem"]').forEach(i => {
+                i.disabled = false;
+            });
+            document.querySelectorAll('#FRs input').forEach(i=> {
+                i.disabled = true;
+                i.checked = false;
+            });
+            FRsBtn.prop("disabled", true);
+        }
+    });
+});
+
 
 function Search_Click() {
     const model = document.querySelector('input[name="Item"]:checked').value;
@@ -22,6 +53,10 @@ function Search_Click() {
         let endDay = String(endDate.getDate()).padStart(2, '0');
         startTime = `${startYear}-${startMonth}-${startDay}T00:00`;
         endTime = `${endYear}-${endMonth}-${endDay}T23:00`;
+    }
+    if (model == "DailyFR") {
+        alert("流速只能匯出Excel");
+        return;
     }
     if (checkboxes.length == 0) {
         alert("請勾選至少一個單位");

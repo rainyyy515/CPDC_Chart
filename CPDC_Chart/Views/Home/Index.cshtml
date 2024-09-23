@@ -18,6 +18,10 @@
                 <input type="radio" name="Item" id="T1440" value="T1440">
                 <label for="T1440">每日平均</label>
             </div>
+            <div class="form-check-inline">
+                <input type="radio" name="Item" id="DailyFR" value="DailyFR">
+                <label for="DailyFR">每日流速</label>
+            </div>
         </div>
         <div class="pt-2">
             <label>資料完整率：</label>
@@ -73,6 +77,13 @@
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="HV_AN" value="AN"><label for="HV_AN">丙烯腈</label>
             <input class="mx-1" type="checkbox" name="CheckBoxItem" id="GHV" value="GHV"><label for="GHV">總熱值</label>
         </div>
+        <div id="FRs">
+            <label>流速：</label>
+            <input class="mx-1" type="checkbox" name="CheckBoxItem" id="ZL" value="Range1_Zero" disabled><label for="ZL">零點偏移低流速</label>
+            <input class="mx-1" type="checkbox" name="CheckBoxItem" id="FL" value="Range1_Full" disabled><label for="FL">全幅偏移低流速</label>
+            <input class="mx-1" type="checkbox" name="CheckBoxItem" id="ZH" value="Range2_Zero" disabled><label for="ZH">零點偏移高流速</label>
+            <input class="mx-1" type="checkbox" name="CheckBoxItem" id="FH" value="Range2_Full" disabled><label for="FH">全幅偏移高流速</label>
+        </div>
         <div class="m-3" style="height:600px;">
             <canvas id="myLineChart"></canvas>
         </div>
@@ -90,7 +101,7 @@
             let startTime = $("#StartTime").val();
             let endTime = $("#EndTime").val();
             let completenessRate = $("#CompletenessRate").val();
-            if (completenessRate == "") {
+            if (completenessRate == "" && model != "DailyFR") {
                 alert("尚未查詢，無法輸出Execl");
                 return;
             };
@@ -119,7 +130,24 @@
                     .catch(error => {
                         alter(error);
                     })
-            } else {
+            }
+            else if (queryBody.model == "DailyFR") {
+                fetch("/CpdcApi/DailyFR", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(queryBody)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        ExportExcel_FRs(data);
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            }
+            else {
                 fetch("/CpdcApi", {
                     method: "POST",
                     headers: {
@@ -164,6 +192,33 @@
             let workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
             XLSX.writeFile(workbook, "歷史趨勢.xlsx");
+        }
+        function ExportExcel_FRs(data) {
+            const checkboxes = document.querySelectorAll('input[name="CheckBoxItem"]:checked');
+            const checkboxStrings = Array.from(checkboxes).map(checkbox => checkbox.id);
+            const checkboxStrings_TW = Array.from(checkboxes).map(checkbox => checkbox.labels[0].innerText);
+            checkboxStrings_TW.unshift("時間");
+            const excelData = [
+                checkboxStrings_TW,
+            ];
+            let resultArray = data.map(item => {
+                let values = [item.RecDateTime];
+                checkboxStrings.forEach(attr => {
+                    if (item[attr] == null) {
+                        let num = 0;
+                        item[attr] = parseFloat(num);
+                    };
+                    values.push((item[attr]).toFixed(2));
+                });
+                return values;
+            });
+            resultArray.forEach(item => {
+                excelData.push(item);
+            })
+            let worksheet = XLSX.utils.aoa_to_sheet(excelData);
+            let workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+            XLSX.writeFile(workbook, "流速歷史趨勢.xlsx");
         }
     </script>
 }
